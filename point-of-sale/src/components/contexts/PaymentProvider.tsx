@@ -68,7 +68,7 @@ export const PaymentProvider: FC<PaymentProviderProps> = ({ children }) => {
         setRaffleRef(undefined);
         setReference(undefined);
         setSignature(undefined);
-        setWinnerNotDetermined(true)
+        setWinnerNotDetermined(false)
         setStatus(PaymentStatus.New);
         setConfirmations(0);
         navigate('/new', { replace: true });
@@ -228,7 +228,7 @@ export const PaymentProvider: FC<PaymentProviderProps> = ({ children }) => {
             changed = true;
             clearInterval(interval);
         };
-    }, [status, signature, navigate]);
+    }, [status, signature, winnerNotDetermined, navigate]);
 
     // When the status is valid, poll for confirmations until the transaction is finalized
     useEffect(() => {
@@ -248,9 +248,10 @@ export const PaymentProvider: FC<PaymentProviderProps> = ({ children }) => {
                     if (status.confirmationStatus === 'finalized') {
                         clearInterval(interval);
                         setStatus(PaymentStatus.Finalized);
+                        setWinnerNotDetermined(true);
                     }
                 }
-
+                
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
             } catch (error: any) {
                 console.log(error);
@@ -261,7 +262,7 @@ export const PaymentProvider: FC<PaymentProviderProps> = ({ children }) => {
             changed = true;
             clearInterval(interval);
         };
-    }, [status, signature, connection]);
+    }, [status, signature, winnerNotDetermined, connection]);
     
     return (
         <PaymentContext.Provider
