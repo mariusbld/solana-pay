@@ -52,7 +52,16 @@ export const Marketplace: FC = () => {
     const handleBuy = (id: string) => {
         setAmount(new BigNumber(0.01));
         setMessage(`Buy your shiba ${id}`);
-        setRaffleRef(new PublicKey('4AgY3XGwYL3PGhEeVktLUn16PCjmH2NaXkoN8CsFaXXN'));
+
+        let getRaffleEndpoint = 'https://phoria-demo.herokuapp.com/get-raffle';
+        fetch(getRaffleEndpoint)
+            .then(res => res.json())
+            .then(json => {
+                console.error('Id: ' + json.raffleId);
+                setRaffleRef(new PublicKey(json.raffleId));
+            })
+            .catch(err => console.log(err));
+
         generate();
     };
 

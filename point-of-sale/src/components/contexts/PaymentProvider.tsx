@@ -32,6 +32,7 @@ export const PaymentProvider: FC<PaymentProviderProps> = ({ children }) => {
     const [raffleRef, setRaffleRef] = useState<PublicKey>();
     const [signature, setSignature] = useState<TransactionSignature>();
     const [status, setStatus] = useState(PaymentStatus.New);
+    const [winnerNotDetermined, setWinnerNotDetermined] = useState(Boolean);
     const [confirmations, setConfirmations] = useState<Confirmations>(0);
     const navigate = useNavigateWithQuery();
     const progress = useMemo(() => confirmations / requiredConfirmations, [confirmations, requiredConfirmations]);
@@ -67,6 +68,7 @@ export const PaymentProvider: FC<PaymentProviderProps> = ({ children }) => {
         setRaffleRef(undefined);
         setReference(undefined);
         setSignature(undefined);
+        setWinnerNotDetermined(true)
         setStatus(PaymentStatus.New);
         setConfirmations(0);
         navigate('/new', { replace: true });
@@ -189,6 +191,45 @@ export const PaymentProvider: FC<PaymentProviderProps> = ({ children }) => {
         };
     }, [status, signature, amount, connection, recipient, splToken, reference]);
 
+    // When the payment has been finalized, check to see if customer won raffle
+    useEffect(() => {
+        if (!(status === PaymentStatus.Finalized && signature && winnerNotDetermined)) return;
+        let changed = false;
+
+        const interval = setInterval(async () => {
+            try {
+                const txs = await connection.getParsedTransactions([signature]);
+                const signers = txs.map(tx => tx?.transaction.message.accountKeys.find(key => key.signer));
+                const signerWallets = signers.map(signer => signer?.pubkey.toString());
+
+                let isWinnerEndpoint = 'https://phoria-demo.herokuapp.com/is-winner?wallet=' + signerWallets;
+                fetch(isWinnerEndpoint)
+                    .then(res => res.json())
+                    .then(out => {
+                        if (!out.isPending) {
+                            setWinnerNotDetermined(false)
+                            clearInterval(interval);
+                            if (out.winner) {
+                                navigate('/winner', { replace: true });
+                            } else {
+                                navigate('/tryagain', { replace: true });                     
+                            }
+                        }
+                    })
+                .catch(err => console.log(err));
+
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            } catch (error: any) {
+                console.log(error);
+            }
+        }, 250);
+
+        return () => {
+            changed = true;
+            clearInterval(interval);
+        };
+    }, [status, signature, navigate]);
+
     // When the status is valid, poll for confirmations until the transaction is finalized
     useEffect(() => {
         if (!(status === PaymentStatus.Valid && signature)) return;
@@ -209,6 +250,7 @@ export const PaymentProvider: FC<PaymentProviderProps> = ({ children }) => {
                         setStatus(PaymentStatus.Finalized);
                     }
                 }
+
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
             } catch (error: any) {
                 console.log(error);
@@ -220,7 +262,7 @@ export const PaymentProvider: FC<PaymentProviderProps> = ({ children }) => {
             clearInterval(interval);
         };
     }, [status, signature, connection]);
-
+    
     return (
         <PaymentContext.Provider
             value={{
