@@ -33,16 +33,16 @@ interface NftAsset {
 }
 
 const allAssets: NftAsset[] = [
-    { id: "sportsarni1", name: "Sports Arni #1", url: "https://drive.google.com/uc?id=1Wxo4T-QeNiSorsHdtgfLZG654GxFeRdH" },
-    { id: "sportsarni2", name: "Sports Arni #2", url: "https://drive.google.com/uc?id=1Wxo4T-QeNiSorsHdtgfLZG654GxFeRdH" },
-    { id: "sportsarni3", name: "Sports Arni #3", url: "https://drive.google.com/uc?id=1Wxo4T-QeNiSorsHdtgfLZG654GxFeRdH" },
-    { id: "sportsarni4", name: "Sports Arni #4", url: "https://drive.google.com/uc?id=1Wxo4T-QeNiSorsHdtgfLZG654GxFeRdH" },
-    { id: "sportsarni5", name: "Sports Arni #5", url: "https://drive.google.com/uc?id=1Wxo4T-QeNiSorsHdtgfLZG654GxFeRdH" },
-    { id: "sportsarni6", name: "Sports Arni #6", url: "https://drive.google.com/uc?id=1Wxo4T-QeNiSorsHdtgfLZG654GxFeRdH" },
-    { id: "sportsarni7", name: "Sports Arni #7", url: "https://drive.google.com/uc?id=1Wxo4T-QeNiSorsHdtgfLZG654GxFeRdH" },
-    { id: "sportsarni8", name: "Sports Arni #8", url: "https://drive.google.com/uc?id=1Wxo4T-QeNiSorsHdtgfLZG654GxFeRdH" },
-    { id: "sportsarni9", name: "Sports Arni #9", url: "https://drive.google.com/uc?id=1Wxo4T-QeNiSorsHdtgfLZG654GxFeRdH" },
-    { id: "sportsarni10", name: "Sports Arni #10", url: "https://drive.google.com/uc?id=1Wxo4T-QeNiSorsHdtgfLZG654GxFeRdH" }
+    { id: "sportsarni1", name: "Sports Arni #1", url: "https://htang-tf-bucket.s3.us-east-2.amazonaws.com/sports_arni_small.jpeg" },
+    { id: "sportsarni2", name: "Sports Arni #2", url: "https://htang-tf-bucket.s3.us-east-2.amazonaws.com/sports_arni_small.jpeg" },
+    { id: "sportsarni3", name: "Sports Arni #3", url: "https://htang-tf-bucket.s3.us-east-2.amazonaws.com/sports_arni_small.jpeg" },
+    { id: "sportsarni4", name: "Sports Arni #4", url: "https://htang-tf-bucket.s3.us-east-2.amazonaws.com/sports_arni_small.jpeg" },
+    { id: "sportsarni5", name: "Sports Arni #5", url: "https://htang-tf-bucket.s3.us-east-2.amazonaws.com/sports_arni_small.jpeg" },
+    { id: "sportsarni6", name: "Sports Arni #6", url: "https://htang-tf-bucket.s3.us-east-2.amazonaws.com/sports_arni_small.jpeg" },
+    { id: "sportsarni7", name: "Sports Arni #7", url: "https://htang-tf-bucket.s3.us-east-2.amazonaws.com/sports_arni_small.jpeg" },
+    { id: "sportsarni8", name: "Sports Arni #8", url: "https://htang-tf-bucket.s3.us-east-2.amazonaws.com/sports_arni_small.jpeg" },
+    { id: "sportsarni9", name: "Sports Arni #9", url: "https://htang-tf-bucket.s3.us-east-2.amazonaws.com/sports_arni_small.jpeg" },
+    { id: "sportsarni10", name: "Sports Arni #10", url: "https://htang-tf-bucket.s3.us-east-2.amazonaws.com/sports_arni_small.jpeg" }
 ];
 
 export const Marketplace: FC = () => {
