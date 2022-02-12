@@ -57,7 +57,6 @@ export const Marketplace: FC = () => {
         fetch(getRaffleEndpoint)
             .then(res => res.json())
             .then(json => {
-                console.error('Id: ' + json.raffleId);
                 setRaffleRef(new PublicKey(json.raffleId));
             })
             .catch(err => console.log(err));
