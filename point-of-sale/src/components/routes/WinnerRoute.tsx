@@ -9,6 +9,8 @@ import * as css from './WinnerRoute.module.pcss';
 export const WinnerRoute: FC = () => {
     const { reset } = usePayment();
 
+    window.showConfetti();
+
     return (
         <div className={css.root}>
             <div className={css.header}>

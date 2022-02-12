@@ -16,7 +16,7 @@ export const TryAgainRoute: FC = () => {
                 <TransactionsLink />
             </div>
             <div className={css.main}>
-                Sorry.  Better luck next time!
+                Sorry. You did not win the raffle.  Better luck next time!
             </div>
             <div className={css.footer}>
                 <PoweredBy />
